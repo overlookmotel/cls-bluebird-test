@@ -1,0 +1,43 @@
+{
+  "name": "cls-bluebird-test",
+  "version": "0.0.0",
+  "description": "Testing CLS context passing with Bluebird promises",
+  "main": "./lib/",
+  "author": {
+    "name": "Overlook Motel"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/overlookmotel/cls-bluebird-test.git"
+  },
+  "bugs": {
+    "url": "https://github.com/overlookmotel/cls-bluebird-test/issues"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "mocha": "^2.4.5",
+    "chai": "^3.5.0",
+    "jshint": "^2.9.1",
+    "istanbul": "^0.4.3",
+    "coveralls": "^2.11.9"
+  },
+  "keywords": [
+    "bluebird",
+    "promise",
+    "promises",
+    "cls",
+    "continuation",
+    "local",
+    "storage"
+  ],
+  "scripts": {
+    "test": "make test",
+    "cover": "make cover"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "readmeFilename": "README.md",
+  "license": "MIT"
+}
