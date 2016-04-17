@@ -12,7 +12,7 @@ chai.config.includeStack = true;
 // tests
 
 /* jshint expr: true */
-/* global describe */
+/* global describe, it */
 
 // init CLS namespace
 var cls = require('continuation-local-storage'),
@@ -20,6 +20,7 @@ var cls = require('continuation-local-storage'),
 
 // load promise libraries
 var libs = [
+	['Native JS promise', global.Promise, !global.Promise],
 	['bluebird v2', require('bluebird2').clone()],
 	['bluebird v3', require('bluebird3').clone()],
 	['bluebird v2 with cls-bluebird', (function() {
@@ -42,10 +43,11 @@ var libs = [
 		return Sequelize.Promise;
 	})()]
 ];
-if (global.Promise) libs.unshift(['Native JS promise', global.Promise]);
 
 // ensure all promise libs are different from eachother
 for (var i = 0; i < libs.length; i++) {
+	if (!libs[i][1] && !libs[i][2]) throw new Error('lib ' + libs[i][0] + ' was not loaded');
+
 	for (var j = i + 1; j < libs.length; j++) {
 		if (libs[i][1] == libs[j][1]) throw new Error('lib ' + libs[i][0] + ' is same as ' + libs[j][0]);
 	}
@@ -56,6 +58,10 @@ var tests = require('./tests');
 
 libs.forEach(function(lib) {
 	describe(lib[0], function() {
-		tests(lib[1], clsNamespace);
+		if (!lib[2]) {
+			tests(lib[1], clsNamespace);
+		} else {
+			it.skip('all tests');
+		}
 	});
 });
