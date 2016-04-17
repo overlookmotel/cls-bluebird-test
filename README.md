@@ -12,9 +12,42 @@
 
 ## Usage
 
-## Tests
+The intention of this repo is to establish, when using promises on node.js, in what circumstances [continuation-local-storage](https://www.npmjs.com/package/continuation-local-storage) context is maintained, and in what cases it gets lost.
 
-Use `npm test` to run the tests. Use `npm run cover` to check coverage.
+This repo contains tests which:
+
+* Try various different ways of using promises
+* Test whether [continuation-local-storage](https://www.npmjs.com/package/continuation-local-storage) context is maintained or not in all these cases
+* Run these tests against various promise implementations
+
+The tests are run against the following Promise implementations:
+
+* Native JS Promise (where available)
+* [bluebird](https://www.npmjs.com/package/bluebird) v2.x
+* [bluebird](https://www.npmjs.com/package/bluebird) v3.x
+* bluebird v2.x with [cls-bluebird](https://www.npmjs.com/package/cls-bluebird) shim
+* bluebird v3.x with [cls-bluebird](https://www.npmjs.com/package/cls-bluebird) shim
+* [sequelize](https://www.npmjs.com/package/sequelize) Promise (another approach to shimming bluebird v3.x)
+
+### Running the tests
+
+Clone this repo then...
+
+```
+npm install
+npm test
+```
+
+### Inspect test results on Travis
+
+Travis CI runs the tests on the following version of node:
+
+* 0.10.x (Native JS Promise is skipped)
+* 0.12.x
+* 4.x
+* 5.x
+
+The results can be viewed at [travis-ci.org/overlookmotel/cls-bluebird-test/](https://travis-ci.org/overlookmotel/cls-bluebird-test/)
 
 ## Changelog
 
