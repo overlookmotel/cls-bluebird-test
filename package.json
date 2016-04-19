@@ -24,6 +24,7 @@
     "bluebird2": "^1.2.0",
     "bluebird3": "^1.2.0",
     "cls-bluebird": "git://github.com/overlookmotel/cls-bluebird.git#provide-bluebird-instance",
+    "cls-bluebird2": "git://github.com/overlookmotel/cls-bluebird2.git",
     "continuation-local-storage": "^3.1.7",
     "sequelize": "^3.21.0",
     "lose-cls-context": "^1.0.1"

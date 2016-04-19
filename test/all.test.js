@@ -22,6 +22,7 @@ var cls = require('continuation-local-storage'),
 var Bluebird2 = require('bluebird2'),
 	Bluebird3 = require('bluebird3'),
 	_clsBluebird = require('cls-bluebird'),
+	clsBluebird2 = require('cls-bluebird2'),
 	Sequelize = require('sequelize');
 
 // prep promise libraries for testing
@@ -36,6 +37,8 @@ var libs = [
 	['bluebird v3', Bluebird3.clone()],
 	['bluebird v2 with cls-bluebird', clsBluebird(clsNamespace, Bluebird2.clone())],
 	['bluebird v3 with cls-bluebird', clsBluebird(clsNamespace, Bluebird3.clone())],
+	//['bluebird v2 with cls-bluebird2', clsBluebird2(clsNamespace, Bluebird2.clone())],
+	['bluebird v3 with cls-bluebird2', clsBluebird2(clsNamespace, Bluebird3.clone())],
 	['sequelize promise', (function() {
 		Sequelize.cls = clsNamespace;
 		return Sequelize.Promise;

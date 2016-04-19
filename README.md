@@ -27,6 +27,7 @@ The tests are run against the following Promise implementations:
 * [bluebird](https://www.npmjs.com/package/bluebird) v3.x
 * bluebird v2.x with [cls-bluebird](https://www.npmjs.com/package/cls-bluebird) shim
 * bluebird v3.x with [cls-bluebird](https://www.npmjs.com/package/cls-bluebird) shim
+* bluebird v3.x with prototype [cls-bluebird2](https://github.com/overlookmotel/cls-bluebird2) shim
 * [sequelize](https://www.npmjs.com/package/sequelize) Promise (another approach to shimming bluebird v3.x)
 
 ### Running the tests
