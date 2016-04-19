@@ -12,8 +12,8 @@ var chai = require('chai'),
 /* global it */
 
 module.exports = function(Promise, ns) {
-    it('maintains context', function() {
-        return twice(function(i) {
+    it('maintains context', function(cb) {
+        run(function(i) {
             var promise;
             ns.run(function() {
                 ns.set('test', i);
@@ -23,11 +23,28 @@ module.exports = function(Promise, ns) {
                 });
             });
             return promise;
-        });
+        }, cb);
     });
 
-    it('maintains context in then after context lost previously in promise chain', function() {
-        return twice(function(i) {
+    it('maintains context in then added outside ns scope', function(cb) {
+        run(function(i) {
+            var promise;
+            ns.run(function() {
+                ns.set('test', i);
+
+                promise = Promise.resolve().then(function() {
+                    expect(ns.get('test')).to.equal(i);
+                });
+            });
+
+            return promise.then(function() {
+                expect(ns.get('test')).to.equal(i);
+            });
+        }, cb);
+    });
+
+    it('maintains context in then after context lost previously in promise chain', function(cb) {
+        run(function(i) {
             var promise;
             ns.run(function() {
                 ns.set('test', i);
@@ -47,33 +64,28 @@ module.exports = function(Promise, ns) {
             });
 
             return promise;
-        });
+        }, cb);
     });
 
-    it('maintains context in then added outside ns scope', function() {
-        return twice(function(i) {
-            var promise;
-            ns.run(function() {
-                ns.set('test', i);
+    function run(fn, cb) {
+		var iterations = 3;
+		var promises = [], done = 0, success = 0;
 
-                promise = Promise.resolve().then(function() {
-                    expect(ns.get('test')).to.equal(i);
-                });
-            });
-
-            return promise.then(function() {
-                expect(ns.get('test')).to.equal(i);
-            });
-        });
-    });
-
-    function twice(fn) {
-        var promises = [];
-
-        for (var i = 0; i < 3; i++) {
-            promises[i] = fn(i);
+        for (var i = 0; i < iterations; i++) {
+            promises[i] = fn(i).then(function() {
+				success++;
+				finished();
+			}, function() {
+				finished();
+			});
         }
 
-        return Promise.all(promises);
+		function finished() {
+			done++;
+			if (done < iterations) return;
+			if (success == iterations) return cb();
+			if (success == 0) return cb(new Error('Always fails'));
+			return cb(new Error('Sometimes fails'));
+		}
     }
 };
