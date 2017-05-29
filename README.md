@@ -1,5 +1,7 @@
 # cls-bluebird-test.js
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/overlookmotel/cls-bluebird-test.svg)](https://greenkeeper.io/)
+
 # Testing CLS context passing with Bluebird promises
 
 ## Current status
